@@ -61,7 +61,7 @@ node('docker/rsqa/base') {
     //  )
 
   // we have a custom build command
-  echo pipeline.git.folder
+  echo pipeline.github.folder
   pipeline.build(
     operation: {
       ansiColor('xterm') {
