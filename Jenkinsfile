@@ -64,7 +64,7 @@ node('docker/rsqa/base') {
   echo pipeline.github.folder
 
   pipeline.createStage(name: 'Some Pipeline Stage', stage: {
-       pipeline.github.cloneRepository([branch: 'staging', folder: 'sample-angular-app')
+       pipeline.github.cloneRepository([branch: 'staging', folder: 'sample-angular-app'])
    })
 
   pipeline.build(
