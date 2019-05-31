@@ -14,33 +14,33 @@
 node('ibm-jenkins-slave-nvm') {
   def lib = library("jenkins-library").org.zowe.jenkins_shared_library
 
-  def pipeline = lib.pipelines.nodejs.NodeJSPipeline.new(this)
+  def pipeline = lib.pipelines.nodejs.GenericPipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
 
   pipeline.setup(
-    packageName: 'org.zowe.explorer-jes',
+    // packageName: 'org.zowe.explorer-jes',
     github: [
-      email                      : lib.Constants.DEFAULT_GITHUB_ROBOT_EMAIL,
-      usernamePasswordCredential : lib.Constants.DEFAULT_GITHUB_ROBOT_CREDENTIAL,
+      email                      : "me@localhost",
+      usernamePasswordCredential : "669feafe-c066-4b8a-9445-5ffefbed7b79",
     ],
-    artifactory: [
-      url                        : lib.Constants.DEFAULT_ARTIFACTORY_URL,
-      usernamePasswordCredential : "giza-artifactory",
-    ],
-    pax: [
-      sshHost                    : lib.Constants.DEFAULT_PAX_PACKAGING_SSH_HOST,
-      sshPort                    : lib.Constants.DEFAULT_PAX_PACKAGING_SSH_PORT,
-      sshCredential              : lib.Constants.DEFAULT_PAX_PACKAGING_SSH_CREDENTIAL,
-      remoteWorkspace            : lib.Constants.DEFAULT_PAX_PACKAGING_REMOTE_WORKSPACE,
-    ],
-    installRegistries: [
-      [
-        email                      : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_EMAIL,
-        usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
-        registry                   : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_INSTALL,
-      ]
-    ],
+    // artifactory: [
+    //   url                        : lib.Constants.DEFAULT_ARTIFACTORY_URL,
+    //   usernamePasswordCredential : "giza-artifactory",
+    // ],
+    // pax: [
+    //   sshHost                    : lib.Constants.DEFAULT_PAX_PACKAGING_SSH_HOST,
+    //   sshPort                    : lib.Constants.DEFAULT_PAX_PACKAGING_SSH_PORT,
+    //   sshCredential              : lib.Constants.DEFAULT_PAX_PACKAGING_SSH_CREDENTIAL,
+    //   remoteWorkspace            : lib.Constants.DEFAULT_PAX_PACKAGING_REMOTE_WORKSPACE,
+    // ],
+    // installRegistries: [
+    //   [
+    //     email                      : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_EMAIL,
+    //     usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
+    //     registry                   : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_INSTALL,
+    //   ]
+    // ],
     publishRegistry: [
       email                      : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_EMAIL,
       usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
