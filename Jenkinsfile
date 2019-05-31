@@ -46,14 +46,15 @@ node('docker/rsqa/base') {
       usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
     ],
     // FIXME: ideally this should set to false (using default by remove this line)
-    ignoreAuditFailure            : true
+    ignoreAuditFailure            : false
   )
 
   // we have a custom build command
   pipeline.build(
     operation: {
       ansiColor('xterm') {
-        sh "cd nodeServer && npm i"
+        sh "cd nodeServer && npm ci && npm run build"
+        sh "cd webClient && npm ci && npm run build"
       }
     }
   )
