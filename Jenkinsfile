@@ -23,6 +23,7 @@ node('docker/rsqa/base') {
     github: [
       email                      : "me@localhost",
       usernamePasswordCredential : "39696965-88a2-4297-87f1-742d13158937-",
+      folder: 'sample-angular-app',
     ],
     // artifactory: [
     //   url                        : lib.Constants.DEFAULT_ARTIFACTORY_URL,
@@ -49,10 +50,21 @@ node('docker/rsqa/base') {
     ignoreAuditFailure            : false
   )
 
+    def jfrog = new JFrogArtifactory(this)
+     jfrog.init(
+         url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+         usernamePasswordCredential: 'my-artifactory-credential'
+     )
+     jfrog.download(
+         specContent : '[{"file": "lib-snapshot-local/path/to/file.zip"}]',
+         expected    : 1
+     )
+
   // we have a custom build command
   pipeline.build(
     operation: {
       ansiColor('xterm') {
+        sh "ls -la"
         sh "cd nodeServer && npm ci && npm run build"
         sh "cd webClient && npm ci && npm run build"
       }
