@@ -50,15 +50,15 @@ node('docker/rsqa/base') {
     ignoreAuditFailure            : false
   )
 
-    def jfrog = new JFrogArtifactory(this)
-     jfrog.init(
-         url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
-         usernamePasswordCredential: 'my-artifactory-credential'
-     )
-     jfrog.download(
-         specContent : '[{"file": "lib-snapshot-local/path/to/file.zip"}]',
-         expected    : 1
-     )
+    // def jfrog = new JFrogArtifactory(this)
+    //  jfrog.init(
+    //      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+    //      usernamePasswordCredential: 'my-artifactory-credential'
+    //  )
+    //  jfrog.download(
+    //      specContent : '[{"file": "lib-snapshot-local/path/to/file.zip"}]',
+    //      expected    : 1
+    //  )
 
   // we have a custom build command
   pipeline.build(
