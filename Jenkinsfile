@@ -14,7 +14,7 @@
 node('ibm-jenkins-slave-nvm') {
   def lib = library("jenkins-library").org.zowe.jenkins_shared_library
 
-  def pipeline = lib.pipelines.nodejs.NodeJSPipeline.new(this)
+  def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
 
@@ -22,7 +22,7 @@ node('ibm-jenkins-slave-nvm') {
     // packageName: 'org.zowe.explorer-jes',
     github: [
       email                      : "me@localhost",
-      usernamePasswordCredential : "39696965-88a2-4297-87f1-742d13158937",
+      usernamePasswordCredential : "39696965-88a2-4297-87f1-742d13158937-",
     ],
     // artifactory: [
     //   url                        : lib.Constants.DEFAULT_ARTIFACTORY_URL,
