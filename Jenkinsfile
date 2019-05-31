@@ -62,17 +62,20 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
   echo pipeline.github.folder
-  pipeline.github.cloneRepository('staging')
   pipeline.build(
     operation: {
       ansiColor('xterm') {
         sh "ls -la"
-        sh "cd nodeServer && npm ci && npm run build"
-        sh "cd webClient && npm ci && npm run build"
+        // sh "cd nodeServer && npm ci && npm run build"
+        // sh "cd webClient && npm ci && npm run build"
       }
     }
   )
-
+pipeline.test(
+  operation: {
+    pipeline.github.cloneRepository('staging')
+  }
+)
 
   pipeline.end()
 }
