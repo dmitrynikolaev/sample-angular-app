@@ -62,6 +62,11 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
   echo pipeline.github.folder
+
+  pipeline.createStage(name: 'Some Pipeline Stage', stage: {
+       pipeline.github.cloneRepository('staging')
+   })
+
   pipeline.build(
     operation: {
       ansiColor('xterm') {
@@ -71,11 +76,11 @@ node('docker/rsqa/base') {
       }
     }
   )
-pipeline.test(
-  operation: {
-    pipeline.github.cloneRepository('staging')
-  }
-)
+// pipeline.test(
+//   operation: {
+//     pipeline.github.cloneRepository('staging')
+//   }
+// )
 
   pipeline.end()
 }
