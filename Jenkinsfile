@@ -18,7 +18,7 @@ node('docker/rsqa/base') {
 
   pipeline.admins.add("dnikolaev")
 
-  pipeline.setup(
+  pipeline.setupGeneric(
     // packageName: 'org.zowe.explorer-jes',
     github: [
       email                      : "me@localhost",
@@ -47,7 +47,7 @@ node('docker/rsqa/base') {
       usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
     ],
     // FIXME: ideally this should set to false (using default by remove this line)
-    ignoreAuditFailure            : false
+    // ignoreAuditFailure            : false
   )
 
     // def jfrog = new JFrogArtifactory(this)
