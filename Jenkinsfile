@@ -66,7 +66,7 @@ node('docker/rsqa/base') {
   pipeline.createStage(name: 'Some Pipeline Stage', stage: {
         [repository: 'zowe/zlux-shared',
           branch: 'staging',
-          folder: './zlux-shared']
+          folder: 'zlux-shared']
    })
 
   pipeline.build(
