@@ -18,7 +18,7 @@ node('docker/rsqa/base') {
 
   pipeline.admins.add("dnikolaev")
 
-  pipeline.setupGeneric(
+  pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     github: [
       email                      : "me@localhost",
@@ -62,6 +62,7 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
   echo pipeline.github.folder
+  pipeline.github.cloneRepository('staging')
   pipeline.build(
     operation: {
       ansiColor('xterm') {
