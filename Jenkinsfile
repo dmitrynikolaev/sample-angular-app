@@ -22,7 +22,7 @@ node('ibm-jenkins-slave-nvm') {
     // packageName: 'org.zowe.explorer-jes',
     github: [
       email                      : "me@localhost",
-      usernamePasswordCredential : "669feafe-c066-4b8a-9445-5ffefbed7b79",
+      usernamePasswordCredential : "39696965-88a2-4297-87f1-742d13158937",
     ],
     // artifactory: [
     //   url                        : lib.Constants.DEFAULT_ARTIFACTORY_URL,
