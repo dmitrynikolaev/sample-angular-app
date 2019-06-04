@@ -88,7 +88,7 @@ pipeline.createStage(
   pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
         ansiColor('xterm') {
            sh "ls -la zlux/"
-           echo "env"
+           sh "env"
         }
    })
   // pipeline.createStage(
