@@ -70,14 +70,14 @@ node('docker/rsqa/base') {
   //  })
 
   pipeline.createStage(
-    operation: {
+    // operation: {
       ansiColor('xterm') {
         sh "ls -la"
 
         // sh "cd nodeServer && npm ci && npm run build"
         // sh "cd webClient && npm ci && npm run build"
       }
-    }
+    // }
   )
 // pipeline.test(
 //   operation: {
