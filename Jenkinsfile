@@ -14,7 +14,8 @@
 node('docker/rsqa/base') {
   def lib = library("jenkins-library").org.zowe.jenkins_shared_library
 
-  def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
+  // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
+  def pipeline = lib.pipelines.base.Pipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
 
@@ -42,10 +43,10 @@ node('docker/rsqa/base') {
     //     registry                   : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_INSTALL,
     //   ]
     // ],
-    publishRegistry: [
-      email                      : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_EMAIL,
-      usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
-    ],
+    // publishRegistry: [
+    //   email                      : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_EMAIL,
+    //   usernamePasswordCredential : lib.Constants.DEFAULT_NPM_PRIVATE_REGISTRY_CREDENTIAL,
+    // ],
     // FIXME: ideally this should set to false (using default by remove this line)
     // ignoreAuditFailure            : false
   )
@@ -62,11 +63,11 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
 
-  pipeline.createStage(name: 'Some Pipeline Stage', stage: {
-        [repository: 'zowe/zlux-shared',
-          branch: 'staging',
-          folder: 'zlux-shared']
-   })
+  // pipeline.createStage(name: 'Some Pipeline Stage', stage: {
+  //       [repository: 'zowe/zlux-shared',
+  //         branch: 'staging',
+  //         folder: 'zlux-shared']
+  //  })
 
   pipeline.build(
     operation: {
