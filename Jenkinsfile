@@ -20,7 +20,7 @@ node('docker/rsqa/base') {
 
   pipeline.admins.add("dnikolaev")
 
-  plugin_scm, pipeline.steps.scm = [pipeline.steps.scm, null]
+  (plugin_scm, pipeline.steps.scm) = [pipeline.steps.scm, null]
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     // github: [
