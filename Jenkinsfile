@@ -83,7 +83,15 @@ pipeline.createStage(name: "Get zlux-core", stage: {
          usernamePasswordCredential: 'giza-artifactory'
      )
      jfrog.download(
-         specContent : '[{"file": "libs-snapshot-local/org/zowe/zlux/zlux-core/1.3.0-STAGING/zlux-core-1.3.0-20190531.171226.tar"}]',
+         specContent : '""
+         {
+  "files": [{
+      "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/1.3.0-STAGING/zlux-core-1.3.0-20190531.171226.tar",
+      "target": "pax-workspace/content/zowe-{ZOWE_VERSION}/files/zlux/zlux-core.pax",
+      "flat": "true"
+      }]
+      }
+      '"",
          expected    : 1
      )
 })
