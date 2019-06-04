@@ -12,6 +12,7 @@
 
 
 node('docker/rsqa/base') {
+  skipDefaultCheckout()
   def lib = library("jenkins-library").org.zowe.jenkins_shared_library
 
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
