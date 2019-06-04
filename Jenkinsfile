@@ -65,7 +65,7 @@ node('docker/rsqa/base') {
   // we have a custom build command
 pipeline.createStage(name: 'Checkout', stage: {
                 checkout scm
-    }, isSkippable: false, timeout: 10 //arguments.checkout
+    }
   )
         
 
