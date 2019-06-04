@@ -17,7 +17,7 @@ node('docker/rsqa/base') {
 
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
   def pipeline = lib.pipelines.base.Pipeline.new(this)
-
+def jfrog = new JFrogArtifactory(this)
   pipeline.admins.add("dnikolaev")
 
  (plugin_scm, scm) = [scm, null]
@@ -76,7 +76,22 @@ pipeline.createStage(name: 'Checkout', stage: {
            sh "ls -la"
         }
    })
-skipDefaultCheckout()
+
+pipeline.createStage(name: "Get zlux-core", stage: {
+     jfrog.init(
+         url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+         usernamePasswordCredential: 'giza-artifactory'
+     )
+     jfrog.download(
+         specContent : '[{"file": "libs-snapshot-local/org/zowe/zlux/zlux-core/1.3.0-STAGING/zlux-core-1.3.0-20190531.171226.tar"}]',
+         expected    : 1
+     )
+})
+  pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
+        ansiColor('xterm') {
+           sh "ls -la"
+        }
+   })
   // pipeline.createStage(
     // operation: {
       // ansiColor('xterm') {
