@@ -84,9 +84,9 @@ pipeline.createStage(name: "Get zlux-core", stage: {
      )
      jfrog.download(
          specContent : """{
-  "files": [{
+    "files": [{
       "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/1.3.0-STAGING/zlux-core-1.3.0-20190531.171226.tar",
-      "target": "zlux",
+      "target": "zlux/",
       "flat": "true",
       "explode": "true"
       }]
