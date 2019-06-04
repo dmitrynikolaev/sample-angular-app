@@ -67,7 +67,9 @@ def jfrog = lib.artifact.JFrogArtifactory.new(this)
 pipeline.createStage(name: 'Checkout', stage: {
       dir('zlux/sample-angular-app') {
                 checkout plugin_scm
-    }}
+    }
+    sh "rm -rf sample-angular-app@tmp"
+    }
   )
         
 
