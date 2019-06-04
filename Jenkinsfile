@@ -17,7 +17,7 @@ node('docker/rsqa/base') {
 
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
   def pipeline = lib.pipelines.base.Pipeline.new(this)
-def jfrog = new JFrogArtifactory(this)
+def jfrog = lib.artifact.JFrogArtifactory.new(this)
   pipeline.admins.add("dnikolaev")
 
  (plugin_scm, scm) = [scm, null]
