@@ -17,6 +17,7 @@ node('docker/rsqa/base') {
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
   def pipeline = lib.pipelines.base.Pipeline.new(this)
   def jfrog = lib.artifact.JFrogArtifactory.new(this)
+  def baseBranch = null
   pipeline.admins.add("dnikolaev")
   (plugin_scm, scm) = [scm, null]
 
@@ -57,6 +58,8 @@ pipeline.createStage(
   stage: {
     dir('zlux/sample-angular-app') {
       checkout plugin_scm
+      baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+      echo baseBranch
     }
   }
 )        
@@ -72,7 +75,7 @@ pipeline.createStage(
       specContent : """
           {
             "files": [{
-              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-STAGING/zlux-core-*.tar",
+              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpper()}/zlux-core-*.tar",
               "target": "zlux/",
               "flat": "true",
               "explode": "true",
