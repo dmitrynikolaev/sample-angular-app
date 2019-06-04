@@ -86,8 +86,9 @@ pipeline.createStage(name: "Get zlux-core", stage: {
          specContent : """{
   "files": [{
       "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/1.3.0-STAGING/zlux-core-1.3.0-20190531.171226.tar",
-      "target": "pax-workspace/content/zowe-{ZOWE_VERSION}/files/zlux/zlux-core.pax",
-      "flat": "true"
+      "target": "./",
+      "flat": "true",
+      "explode": "true"
       }]
       }
       """,
