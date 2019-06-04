@@ -19,8 +19,8 @@ node('docker/rsqa/base') {
   def pipeline = lib.pipelines.base.Pipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
-  scm1 = pipeline.steps.scm
-  pipeline.steps.scm = null
+
+  plugin_scm, pipeline.steps.scm = [pipeline.steps.scm, null]
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     // github: [
@@ -66,7 +66,7 @@ node('docker/rsqa/base') {
   // we have a custom build command
 pipeline.createStage(name: 'Checkout', stage: {
       dir('angular-app') {
-                checkout scm1
+                checkout plugin_scm
     }}
   )
         
