@@ -12,15 +12,14 @@
 
 
 node('docker/rsqa/base') {
-  skipDefaultCheckout()
-  def lib = library("jenkins-library").org.zowe.jenkins_shared_library
 
+  def lib = library("jenkins-library").org.zowe.jenkins_shared_library
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
   def pipeline = lib.pipelines.base.Pipeline.new(this)
-def jfrog = lib.artifact.JFrogArtifactory.new(this)
+  def jfrog = lib.artifact.JFrogArtifactory.new(this)
   pipeline.admins.add("dnikolaev")
+  (plugin_scm, scm) = [scm, null]
 
- (plugin_scm, scm) = [scm, null]
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     // github: [
@@ -53,55 +52,43 @@ def jfrog = lib.artifact.JFrogArtifactory.new(this)
     // ignoreAuditFailure            : false
   )
 
-    // def jfrog = new JFrogArtifactory(this)
-    //  jfrog.init(
-    //      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
-    //      usernamePasswordCredential: 'my-artifactory-credential'
-    //  )
-    //  jfrog.download(
-    //      specContent : '[{"file": "lib-snapshot-local/path/to/file.zip"}]',
-    //      expected    : 1
-    //  )
-
-  // we have a custom build command
-pipeline.createStage(name: 'Checkout', stage: {
-      dir('zlux/sample-angular-app') {
-         checkout plugin_scm
-      }
+pipeline.createStage(
+  name: 'Checkout', 
+  stage: {
+    dir('zlux/sample-angular-app') {
+      checkout plugin_scm
     }
-  )
-        
+  }
+)        
 
-  pipeline.createStage(name: 'Some Pipeline Stage', stage: {
-        ansiColor('xterm') {
-           sh "ls -la zlux"
-        }
-   })
-
-pipeline.createStage(name: "Get zlux-core", stage: {
-     jfrog.init(
-         url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
-         usernamePasswordCredential: 'giza-artifactory'
-     )
-     jfrog.download(
-         specContent : """{
-    "files": [{
-      "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-STAGING/zlux-core-*.tar",
-      "target": "zlux/",
-      "flat": "true",
-      "explode": "true",
-      "sortBy": ["created"],
-      "sortOrder": "desc",
-      "limit": 1
-      }]
-      }
-      """,
-         expected    : 1
+pipeline.createStage(
+  name: "Get zlux-core", 
+  stage: {
+    jfrog.init(
+      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+      usernamePasswordCredential: 'giza-artifactory'
+    )
+    jfrog.download(
+      specContent : """
+          {
+            "files": [{
+              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-STAGING/zlux-core-*.tar",
+              "target": "zlux/",
+              "flat": "true",
+              "explode": "true",
+              "sortBy": ["created"],
+              "sortOrder": "desc",
+              "limit": 1
+            }]
+          }
+        """,
+        expected: 1
      )
 })
   pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
         ansiColor('xterm') {
            sh "ls -la zlux/"
+           echo "env"
         }
    })
   // pipeline.createStage(
