@@ -69,11 +69,11 @@ node('docker/rsqa/base') {
   //         folder: 'zlux-shared']
   //  })
 
-  pipeline.build(
+  pipeline.createStage(
     operation: {
       ansiColor('xterm') {
         sh "ls -la"
-        
+
         // sh "cd nodeServer && npm ci && npm run build"
         // sh "cd webClient && npm ci && npm run build"
       }
