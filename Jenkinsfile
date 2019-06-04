@@ -65,8 +65,9 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
 pipeline.createStage(name: 'Checkout', stage: {
+      dir('angular-app') {
                 checkout scm1
-    }
+    }}
   )
         
 
