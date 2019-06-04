@@ -63,22 +63,22 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
 
-  // pipeline.createStage(name: 'Some Pipeline Stage', stage: {
-  //       [repository: 'zowe/zlux-shared',
-  //         branch: 'staging',
-  //         folder: 'zlux-shared']
-  //  })
+  pipeline.createStage(name: 'Some Pipeline Stage', stage: {
+        ansiColor('xterm') {
+           sh "ls -la"
+        }
+   })
 
-  pipeline.createStage(
+  // pipeline.createStage(
     // operation: {
-      ansiColor('xterm') {
-        sh "ls -la"
+      // ansiColor('xterm') {
+        // sh "ls -la"
 
         // sh "cd nodeServer && npm ci && npm run build"
         // sh "cd webClient && npm ci && npm run build"
-      }
+      // }
     // }
-  )
+  // )
 // pipeline.test(
 //   operation: {
 //     pipeline.github.cloneRepository('staging')
