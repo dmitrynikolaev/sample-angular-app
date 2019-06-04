@@ -65,7 +65,7 @@ def jfrog = lib.artifact.JFrogArtifactory.new(this)
 
   // we have a custom build command
 pipeline.createStage(name: 'Checkout', stage: {
-      dir('angular-app') {
+      dir('zlux/sample-angular-app') {
                 checkout plugin_scm
     }}
   )
@@ -73,7 +73,7 @@ pipeline.createStage(name: 'Checkout', stage: {
 
   pipeline.createStage(name: 'Some Pipeline Stage', stage: {
         ansiColor('xterm') {
-           sh "ls -la"
+           sh "ls -la zlux"
         }
    })
 
@@ -86,7 +86,8 @@ pipeline.createStage(name: "Get zlux-core", stage: {
          specContent : """{
     "files": [{
       "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/1.3.0-STAGING/zlux-core-1.3.0-20190531.171226.tar",
-
+      "target": "zlux/",
+      "flat": "true",
       "explode": "true"
       }]
       }
@@ -96,7 +97,7 @@ pipeline.createStage(name: "Get zlux-core", stage: {
 })
   pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
         ansiColor('xterm') {
-           sh "ls -la"
+           sh "ls -la zlux/"
         }
    })
   // pipeline.createStage(
