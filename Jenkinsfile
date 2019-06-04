@@ -61,7 +61,6 @@ node('docker/rsqa/base') {
     //  )
 
   // we have a custom build command
-  echo pipeline.github.folder
 
   pipeline.createStage(name: 'Some Pipeline Stage', stage: {
         [repository: 'zowe/zlux-shared',
