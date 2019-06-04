@@ -19,6 +19,7 @@ node('docker/rsqa/base') {
   def pipeline = lib.pipelines.base.Pipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
+  scm1 = pipeline.steps.scm
   pipeline.steps.scm = null
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
@@ -64,7 +65,7 @@ node('docker/rsqa/base') {
 
   // we have a custom build command
 pipeline.createStage(name: 'Checkout', stage: {
-                checkout scm
+                checkout scm1
     }
   )
         
