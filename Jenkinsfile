@@ -19,6 +19,7 @@ node('docker/rsqa/base') {
 
   pipeline.admins.add("dnikolaev")
 skipDefaultCheckout()
+pipeline.addBuildOption(skipDefaultCheckout())
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     github: [
