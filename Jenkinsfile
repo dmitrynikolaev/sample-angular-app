@@ -57,9 +57,9 @@ pipeline.createStage(
   name: 'Checkout', 
   stage: {
     dir('zlux/sample-angular-app') {
-      checkout plugin_scm
-      baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-      echo baseBranch
+      scmVars = checkout(plugin_scm)
+      // baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+      echo scmVars.GIT_BRANCH
     }
   }
 )        
@@ -75,7 +75,7 @@ pipeline.createStage(
       specContent : """
           {
             "files": [{
-              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpper()}/zlux-core-*.tar",
+              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${scmVars.GIT_BRANCH.toUpperCase()}/zlux-core-*.tar",
               "target": "zlux/",
               "flat": "true",
               "explode": "true",
