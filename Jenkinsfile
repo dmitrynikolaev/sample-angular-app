@@ -18,7 +18,7 @@ node('docker/rsqa/base') {
   def pipeline = lib.pipelines.base.Pipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
-
+skipDefaultCheckout()
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     github: [
@@ -64,7 +64,6 @@ node('docker/rsqa/base') {
   // we have a custom build command
 
   pipeline.createStage(name: 'Some Pipeline Stage', stage: {
-     skipDefaultCheckout()
         ansiColor('xterm') {
            sh "ls -la"
         }
