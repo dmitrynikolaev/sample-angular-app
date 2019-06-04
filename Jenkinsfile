@@ -23,11 +23,11 @@ node('docker/rsqa/base') {
   pipeline.steps.scm = null
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
-    github: [
-      email                      : "me@localhost",
-      usernamePasswordCredential : "39696965-88a2-4297-87f1-742d13158937-",
-      folder: 'sample-angular-app',
-    ],
+    // github: [
+    //   email                      : "me@localhost",
+    //   usernamePasswordCredential : "39696965-88a2-4297-87f1-742d13158937-",
+    //   folder: 'sample-angular-app',
+    // ],
     // artifactory: [
     //   url                        : lib.Constants.DEFAULT_ARTIFACTORY_URL,
     //   usernamePasswordCredential : "giza-artifactory",
