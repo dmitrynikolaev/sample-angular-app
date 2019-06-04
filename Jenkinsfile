@@ -18,8 +18,8 @@ node('docker/rsqa/base') {
   def pipeline = lib.pipelines.base.Pipeline.new(this)
 
   pipeline.admins.add("dnikolaev")
-skipDefaultCheckout()
-pipeline.addBuildOption(skipDefaultCheckout())
+  // pipeline.addBuildOption()
+  skipDefaultCheckout()
   pipeline.setup(
     // packageName: 'org.zowe.explorer-jes',
     github: [
@@ -51,7 +51,7 @@ pipeline.addBuildOption(skipDefaultCheckout())
     // FIXME: ideally this should set to false (using default by remove this line)
     // ignoreAuditFailure            : false
   )
-
+skipDefaultCheckout()
     // def jfrog = new JFrogArtifactory(this)
     //  jfrog.init(
     //      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
@@ -69,7 +69,7 @@ pipeline.addBuildOption(skipDefaultCheckout())
            sh "ls -la"
         }
    })
-
+skipDefaultCheckout()
   // pipeline.createStage(
     // operation: {
       // ansiColor('xterm') {
