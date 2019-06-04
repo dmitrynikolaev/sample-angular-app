@@ -64,6 +64,7 @@ node('docker/rsqa/base') {
   // we have a custom build command
 
   pipeline.createStage(name: 'Some Pipeline Stage', stage: {
+     skipDefaultCheckout()
         ansiColor('xterm') {
            sh "ls -la"
         }
