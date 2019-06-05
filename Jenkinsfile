@@ -127,7 +127,7 @@ pipeline.createStage(
       dir("zlux/sample-angular-app") {
       sh \
       """
-      export MVD_DESKTOP_DIR=${env.WORKSPACE}/zlux/zlux-app-manager/virtual-manager
+      export MVD_DESKTOP_DIR=${env.WORKSPACE}/zlux/zlux-app-manager/virtual-desktop
       packages=\$(find . -name package.json | { grep -v node_modules || true; })
       for package in \$packages
         do
