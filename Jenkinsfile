@@ -85,9 +85,10 @@ pipeline.createStage(
     }
     dir("zlux-app-manager/webClient") {
       sh "npm ci"
-  }
+    }
     dir("zlux-app-manager/nodeServer") {
       sh "npm ci"
+    }
   }
 )
 
