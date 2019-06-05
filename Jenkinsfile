@@ -66,12 +66,11 @@ pipeline.createStage(
       github = lib.scm.GitHub.new(this)
       github.init(
         [
-          repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager", 
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
       )
-      github.cloneRepository()
-    
+      github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
+      github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-app-manager")
   }
 )
 
@@ -95,11 +94,13 @@ pipeline.createStage(
 pipeline.createStage(
   name: "Build", 
   stage: {
-    dir("sample-angular-app/webClient") {
-      sh "MVD_DESKTOP_DIR=../../zlux-app-manager/virtual-desktop npm run build"
-    }
-    dir("sample-angular-app/nodeServer") {
-      sh "npm run build"
+    ansiColor('xterm') {
+      dir("sample-angular-app/webClient") {
+        sh "MVD_DESKTOP_DIR=../../zlux-app-manager/virtual-desktop npm run build"
+      }
+      dir("sample-angular-app/nodeServer") {
+        sh "npm run build"
+      }
     }
   }
 )
