@@ -82,11 +82,15 @@ pipeline.createStage(
         sh "npm ci"
       }
     }
-    dir("sample-angular-app/webClient") {
-      sh "npm ci"
-    }
-    dir("sample-angular-app/nodeServer") {
-      sh "npm ci"
+    dir("sample-angular-app") {
+      sh \
+      """
+      packages=\$(find . -name package.json | { grep -v node_modules || true; })
+      for package in \$packages
+        do
+          sh -c "cd `dirname \$package` && npm ci"
+        done
+      """
     }
   }
 )
