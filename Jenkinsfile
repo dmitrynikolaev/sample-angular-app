@@ -99,6 +99,7 @@ pipeline.createStage(
     }
     dir("zlux-app-manager/nodeServer") {
       sh "npm run build"
+    }
   }
 )
 // pipeline.createStage(
