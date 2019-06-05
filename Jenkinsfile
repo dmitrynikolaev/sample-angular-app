@@ -62,7 +62,7 @@ pipeline.createStage(
       echo baseBranch
       // baseBranch = "staging"
     }
-    dir('zlux-app-manager') {
+    
       github = GitHub(this)
       github.init(
         [repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manage", 
@@ -70,9 +70,9 @@ pipeline.createStage(
         ])
         github.cloneRepository()
       ])
-    }
+    
   }
-)        
+)
 
 // pipeline.createStage(
 //   name: "Get zlux-core", 
