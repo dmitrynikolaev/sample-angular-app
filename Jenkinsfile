@@ -69,34 +69,36 @@ pipeline.createStage(
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
       )
-      // github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
-      // github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-app-manager")
+      dir('zlux') {
+        github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
+        github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-app-manager")
+      }
   }
 )
-pipeline.createStage(
-  name: "Get zlux-core", 
-  stage: {
-    jfrog.init(
-      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
-      usernamePasswordCredential: 'giza-artifactory'
-    )
-    jfrog.download(
-      specContent : """
-          {
-            "files": [{
-              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpperCase()}/zlux-core-*.tar",
-              "target": "zlux/",
-              "flat": "true",
-              "explode": "true",
-              "sortBy": ["created"],
-              "sortOrder": "desc",
-              "limit": 1
-            }]
-          }
-        """,
-        expected: 1
-     )
-})
+// pipeline.createStage(
+//   name: "Get zlux-core", 
+//   stage: {
+//     jfrog.init(
+//       url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+//       usernamePasswordCredential: 'giza-artifactory'
+//     )
+//     jfrog.download(
+//       specContent : """
+//           {
+//             "files": [{
+//               "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpperCase()}/zlux-core-*.tar",
+//               "target": "zlux/",
+//               "flat": "true",
+//               "explode": "true",
+//               "sortBy": ["created"],
+//               "sortOrder": "desc",
+//               "limit": 1
+//             }]
+//           }
+//         """,
+//         expected: 1
+//      )
+// })
 pipeline.createStage(
   name: "Bootstrap", 
   stage: {
