@@ -63,7 +63,7 @@ pipeline.createStage(
       // baseBranch = "staging"
     }
     
-      github = GitHub(this)
+      github = lib.scm.GitHub.new(this)
       github.init(
         [
           repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manage", 
