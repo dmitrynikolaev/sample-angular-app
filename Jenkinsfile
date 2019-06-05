@@ -17,7 +17,7 @@ node('docker/rsqa/base') {
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
   def pipeline = lib.pipelines.base.Pipeline.new(this)
   def jfrog = lib.artifact.JFrogArtifactory.new(this)
-  def baseBranch = null
+  def baseBranch = env.hasProperty("CHANGE_TARGET")? env.CHANGE_TARGET: env.BRANCH_NAME
   pipeline.admins.add("dnikolaev")
   (plugin_scm, scm) = [scm, null]
 
@@ -58,8 +58,8 @@ pipeline.createStage(
   stage: {
     dir('zlux/sample-angular-app') {
       scmVars = checkout(plugin_scm)
-      baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-      echo baseBranch
+      // baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+      // echo baseBranch
       // baseBranch = "staging"
     }
     
@@ -69,7 +69,6 @@ pipeline.createStage(
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
     )
-    def baseBranch = (env.CHANGE_TARGET)? env.CHANGE_TARGET: env.BRANCH_NAME
     dir('zlux') {
       github.cloneRepository(repository: "zowe/zlux-app-manager", branch: baseBranch, folder: "zlux-app-manager")
       github.cloneRepository(repository: "zowe/zlux-platform", branch: baseBranch, folder: "zlux-platform")
