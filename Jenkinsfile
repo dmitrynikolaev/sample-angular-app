@@ -83,10 +83,10 @@ pipeline.createStage(
         sh "npm ci"
       }
     }
-    dir("zlux-app-manager/webClient") {
+    dir("sample-angular-app/webClient") {
       sh "npm ci"
     }
-    dir("zlux-app-manager/nodeServer") {
+    dir("sample-angular-app/nodeServer") {
       sh "npm ci"
     }
   }
@@ -95,10 +95,10 @@ pipeline.createStage(
 pipeline.createStage(
   name: "Build", 
   stage: {
-    dir("zlux-app-manager/webClient") {
+    dir("sample-angular-app/webClient") {
       sh "npm run build"
     }
-    dir("zlux-app-manager/nodeServer") {
+    dir("sample-angular-app/nodeServer") {
       sh "npm run build"
     }
   }
