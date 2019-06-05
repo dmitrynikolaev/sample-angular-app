@@ -96,7 +96,7 @@ pipeline.createStage(
   stage: {
     ansiColor('xterm') {
       dir("sample-angular-app/webClient") {
-        sh "MVD_DESKTOP_DIR=../../zlux-app-manager/virtual-desktop npm run build"
+        sh "MVD_DESKTOP_DIR=${env.WORKSPACE}/zlux-app-manager/virtual-desktop npm run build"
       }
       dir("sample-angular-app/nodeServer") {
         sh "npm run build"
