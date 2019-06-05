@@ -56,44 +56,54 @@ node('docker/rsqa/base') {
 pipeline.createStage(
   name: 'Checkout', 
   stage: {
-    dir('zlux/sample-angular-app') {
+    dir('sample-angular-app') {
       scmVars = checkout(plugin_scm)
       baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
       echo baseBranch
+      // baseBranch = "staging"
+    }
+    dir('zlux-app-manager') {
+      github = GitHub(this)
+      github.init(
+        [repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manage", 
+        email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937-"
+        ])
+        github.cloneRepository()
+      ])
     }
   }
 )        
 
-pipeline.createStage(
-  name: "Get zlux-core", 
-  stage: {
-    jfrog.init(
-      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
-      usernamePasswordCredential: 'giza-artifactory'
-    )
-    jfrog.download(
-      specContent : """
-          {
-            "files": [{
-              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpperCase()}/zlux-core-*.tar",
-              "target": "zlux/",
-              "flat": "true",
-              "explode": "true",
-              "sortBy": ["created"],
-              "sortOrder": "desc",
-              "limit": 1
-            }]
-          }
-        """,
-        expected: 1
-     )
-})
-  pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
-        ansiColor('xterm') {
-           sh "ls -la zlux/"
-           sh "env"
-        }
-   })
+// pipeline.createStage(
+//   name: "Get zlux-core", 
+//   stage: {
+//     jfrog.init(
+//       url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+//       usernamePasswordCredential: 'giza-artifactory'
+//     )
+//     jfrog.download(
+//       specContent : """
+//           {
+//             "files": [{
+//               "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpperCase()}/zlux-core-*.tar",
+//               "target": "zlux/",
+//               "flat": "true",
+//               "explode": "true",
+//               "sortBy": ["created"],
+//               "sortOrder": "desc",
+//               "limit": 1
+//             }]
+//           }
+//         """,
+//         expected: 1
+//      )
+// })
+pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
+      ansiColor('xterm') {
+          sh "ls -la"
+          sh "env"
+      }
+  })
   // pipeline.createStage(
     // operation: {
       // ansiColor('xterm') {
