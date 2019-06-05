@@ -66,7 +66,7 @@ pipeline.createStage(
       github = lib.scm.GitHub.new(this)
       github.init(
         [
-          repository: "zowe/zlux-app-manager", branch: "PR-111", folder: "zlux-app-manage", 
+          repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manage", 
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
       )
@@ -75,6 +75,14 @@ pipeline.createStage(
   }
 )
 
+pipeline.createStage(
+  name: "Bootstrap", 
+  stage: {
+    dir("zlux-app-manager/virtual-desktop") {
+      sh "npm ci"
+    }
+  }
+)
 // pipeline.createStage(
 //   name: "Get zlux-core", 
 //   stage: {
