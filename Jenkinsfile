@@ -63,16 +63,18 @@ pipeline.createStage(
       // baseBranch = "staging"
     }
     
-      github = lib.scm.GitHub.new(this)
-      github.init(
+    github = lib.scm.GitHub.new(this)
+    github.init(
         [
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
-      )
-      dir('zlux') {
-        github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
-        github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-platform")
-      }
+    )
+    def baseBranch = (env.CHANGE_TARGET)? env.CHANGE_TARGET: env.BRANCH_NAME
+    }
+    dir('zlux') {
+      github.cloneRepository(repository: "zowe/zlux-app-manager", branch: baseBranch, folder: "zlux-app-manager")
+      github.cloneRepository(repository: "zowe/zlux-platform", branch: baseBranch, folder: "zlux-platform")
+    }
   }
 )
 // pipeline.createStage(
