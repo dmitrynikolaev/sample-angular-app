@@ -71,7 +71,7 @@ pipeline.createStage(
       )
       dir('zlux') {
         github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
-        github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-app-manager")
+        github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-platform")
       }
   }
 )
