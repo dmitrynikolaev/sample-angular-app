@@ -17,7 +17,7 @@ node('docker/rsqa/base') {
   // def pipeline = lib.pipelines.generic.GenericPipeline.new(this)
   def pipeline = lib.pipelines.base.Pipeline.new(this)
   def jfrog = lib.artifact.JFrogArtifactory.new(this)
-  def baseBranch = env.hasProperty("CHANGE_TARGET")? env.CHANGE_TARGET: env.BRANCH_NAME
+  def baseBranch = env.CHANGE_TARGET? env.CHANGE_TARGET: env.BRANCH_NAME
   pipeline.admins.add("dnikolaev")
   (plugin_scm, scm) = [scm, null]
 
