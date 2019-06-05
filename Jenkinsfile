@@ -70,7 +70,6 @@ pipeline.createStage(
         ]
     )
     def baseBranch = (env.CHANGE_TARGET)? env.CHANGE_TARGET: env.BRANCH_NAME
-    }
     dir('zlux') {
       github.cloneRepository(repository: "zowe/zlux-app-manager", branch: baseBranch, folder: "zlux-app-manager")
       github.cloneRepository(repository: "zowe/zlux-platform", branch: baseBranch, folder: "zlux-platform")
