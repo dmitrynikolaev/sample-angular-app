@@ -56,7 +56,7 @@ node('docker/rsqa/base') {
 pipeline.createStage(
   name: 'Checkout', 
   stage: {
-    dir('sample-angular-app') {
+    dir('zlux/sample-angular-app') {
       scmVars = checkout(plugin_scm)
       baseBranch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
       echo baseBranch
@@ -69,20 +69,43 @@ pipeline.createStage(
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
       )
-      github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
-      github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-app-manager")
+      // github.cloneRepository(repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager")
+      // github.cloneRepository(repository: "zowe/zlux-platform", branch: "staging", folder: "zlux-app-manager")
   }
 )
-
+pipeline.createStage(
+  name: "Get zlux-core", 
+  stage: {
+    jfrog.init(
+      url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
+      usernamePasswordCredential: 'giza-artifactory'
+    )
+    jfrog.download(
+      specContent : """
+          {
+            "files": [{
+              "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpperCase()}/zlux-core-*.tar",
+              "target": "zlux/",
+              "flat": "true",
+              "explode": "true",
+              "sortBy": ["created"],
+              "sortOrder": "desc",
+              "limit": 1
+            }]
+          }
+        """,
+        expected: 1
+     )
+})
 pipeline.createStage(
   name: "Bootstrap", 
   stage: {
-    dir("zlux-app-manager/virtual-desktop") {
+    dir("zlux/zlux-app-manager/virtual-desktop") {
       sshagent (credentials: ["dmitrynikolaev-github-key"]) {
         sh "npm ci"
       }
     }
-    dir("sample-angular-app") {
+    dir("zlux/sample-angular-app") {
       sh \
       """
       packages=\$(find . -name package.json | { grep -v node_modules || true; })
@@ -99,39 +122,20 @@ pipeline.createStage(
   name: "Build", 
   stage: {
     ansiColor('xterm') {
-      dir("sample-angular-app/webClient") {
-        sh "MVD_DESKTOP_DIR=${env.WORKSPACE}/zlux-app-manager/virtual-desktop npm run build"
-      }
-      dir("sample-angular-app/nodeServer") {
-        sh "npm run build"
-      }
+      dir("zlux/sample-angular-app") {
+      sh \
+      """
+      packages=\$(find . -name package.json | { grep -v node_modules || true; })
+      for package in \$packages
+        do
+          sh -c "cd `dirname \$package` && npm run build"
+        done
+      """
+    }
     }
   }
 )
-// pipeline.createStage(
-//   name: "Get zlux-core", 
-//   stage: {
-//     jfrog.init(
-//       url: 'https://gizaartifactory.jfrog.io/gizaartifactory',
-//       usernamePasswordCredential: 'giza-artifactory'
-//     )
-//     jfrog.download(
-//       specContent : """
-//           {
-//             "files": [{
-//               "pattern": "libs-snapshot-local/org/zowe/zlux/zlux-core/*-${baseBranch.toUpperCase()}/zlux-core-*.tar",
-//               "target": "zlux/",
-//               "flat": "true",
-//               "explode": "true",
-//               "sortBy": ["created"],
-//               "sortOrder": "desc",
-//               "limit": 1
-//             }]
-//           }
-//         """,
-//         expected: 1
-//      )
-// })
+
 pipeline.createStage(name: 'Some Pipeline Stage2', stage: {
       ansiColor('xterm') {
           sh "ls -la"
