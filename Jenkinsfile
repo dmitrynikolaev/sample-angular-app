@@ -131,7 +131,7 @@ pipeline.createStage(
       packages=\$(find . -name package.json | { grep -v node_modules || true; })
       for package in \$packages
         do
-          sh -c "cd `dirname \$package` && npm run build"
+          sh -c "cd `dirname \$package` && echo \$MVD_DESKTOP_DIR && pwd && npm run build"
         done
       """
     }
