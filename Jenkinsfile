@@ -66,7 +66,7 @@ pipeline.createStage(
       github = lib.scm.GitHub.new(this)
       github.init(
         [
-          repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manage", 
+          repository: "zowe/zlux-app-manager", branch: "staging", folder: "zlux-app-manager", 
           email: "smb@gmail.com", usernamePasswordCredential: "39696965-88a2-4297-87f1-742d13158937"
         ]
       )
