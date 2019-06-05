@@ -79,7 +79,7 @@ pipeline.createStage(
   name: "Bootstrap", 
   stage: {
     dir("zlux-app-manager/virtual-desktop") {
-      sshagent (credentials: ["669feafe-c066-4b8a-9445-5ffefbed7b79"]) {
+      sshagent (credentials: ["dmitrynikolaev-github-key"]) {
         sh "npm ci"
       }
     }
