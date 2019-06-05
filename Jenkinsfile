@@ -83,6 +83,22 @@ pipeline.createStage(
         sh "npm ci"
       }
     }
+    dir("zlux-app-manager/webClient") {
+      sh "npm ci"
+  }
+    dir("zlux-app-manager/nodeServer") {
+      sh "npm ci"
+  }
+)
+
+pipeline.createStage(
+  name: "Build", 
+  stage: {
+    dir("zlux-app-manager/webClient") {
+      sh "npm run build"
+    }
+    dir("zlux-app-manager/nodeServer") {
+      sh "npm run build"
   }
 )
 // pipeline.createStage(
